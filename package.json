@@ -1,0 +1,74 @@
+{
+    "name": "js-viewer",
+    "version": "1.0.0",
+    "devDependencies": {
+        "@types/jest": "^26.0.14",
+        "base-href-webpack-plugin": "^2.0.0",
+        "cpx": "^1.5.0",
+        "css-loader": "^5.0.0",
+        "eslint": "7.10.0",
+        "eslint-plugin-jest": "24.1.0",
+        "eslint-plugin-no-loops": "0.3.0",
+        "eslint-plugin-promise": "4.2.1",
+        "eslint-plugin-simple-import-sort": "5.0.3",
+        "eslint-plugin-sonarjs": "0.5.0",
+        "eslint-plugin-unicorn": "22.0.0",
+        "expose-loader": "^1.0.1",
+        "file-loader": "^6.1.1",
+        "gnomon": "^1.5.0",
+        "html-webpack-plugin": "^4.5.0",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^26.5.3",
+        "jest-sonar-reporter": "^2.0.0",
+        "jscpd": "^3.3.19",
+        "mini-css-extract-plugin": "^1.0.0",
+        "node-sass": "^4.14.1",
+        "rimraf": "^3.0.2",
+        "sass-loader": "^10.0.3",
+        "uglifyjs-webpack-plugin": "^2.2.0",
+        "url-loader": "^4.1.1",
+        "webpack": "^5.1.2",
+        "webpack-bundle-analyzer": "^3.9.0",
+        "webpack-merge-and-include-globally": "^2.1.26"
+    },
+    "scripts": {
+        "report:js-duplicated": "npx jscpd ./src/js",
+        "build": "npm run clean:dist && grunt build:development && npm run test",
+        "build:skip-test": "npm run clean:dist && grunt build:development ",
+        "clean:dist": "rimraf ./dist",
+        "browser:coverage": "start coverage/lcov-report/index.html",
+        "test": "jest",
+        "test:coverage": "jest --coverage",
+        "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+        "test:watch": "jest --watch"
+    },
+    "files": [
+        "dist"
+    ],
+    "jest": {
+        "moduleFileExtensions": [
+            "js"
+        ],
+        "collectCoverageFrom": [
+            "src/**",
+            "!src/lib/**"
+        ],
+        "testResultsProcessor": "jest-sonar-reporter",
+        "moduleNameMapper": {
+            "\\.scss$": "identity-obj-proxy"
+        }
+    },
+    "jscpd": {
+        "threshold": 5,
+        "reporters": [
+            "html",
+            "console"
+        ],
+        "ignore": [
+            "./lib"
+        ]
+    },
+    "dependencies": {
+        "connect": "^3.7.0"
+    }
+}
